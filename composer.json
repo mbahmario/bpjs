@@ -1,0 +1,21 @@
+{
+    "name": "mbahmario/bpjs",
+    "description": "Wrapper for BPJS Indonesia",
+    "type": "package",
+    "authors": [
+        {
+            "name": "Rio Irmayanto",
+            "email": "rio.irmayanto@gmail.com"
+        }
+    ],
+    "license": "mit",
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Mbahmario\\Bpjs\\": "src/"
+        }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "~6.0"
+    }
+}
