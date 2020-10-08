@@ -8,7 +8,7 @@ https://dvlp.bpjs-kesehatan.go.id/VClaim-Katalog
 
 #### Installation :fire:
 
-`composer require nsulistiyawan/bpjs`
+`composer require mbahmario/bpjs`
 
 #### Example Usage :confetti_ball:
 ```php
@@ -23,13 +23,13 @@ $vclaim_conf = [
 // use Referensi service
 // https://dvlp.bpjs-kesehatan.go.id/VClaim-Katalog/Referensi
 
-$referensi = new Nsulistiyawan\Bpjs\VClaim\Referensi($vclaim_conf);
+$referensi = new Mbahmario\Bpjs\VClaim\Referensi($vclaim_conf);
 var_dump($referensi->diagnosa('A00'));
 
 //use Peserta service
 //https://dvlp.bpjs-kesehatan.go.id/VClaim-Katalog/Peserta
 
-$peserta = new \Nsulistiyawan\Bpjs\VClaim\Peserta($vclaim_conf);
+$peserta = new \Mbahmario\Bpjs\VClaim\Peserta($vclaim_conf);
 var_dump($peserta->getByNoKartu('123456789','2018-09-16'));
 ```
 
