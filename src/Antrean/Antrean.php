@@ -11,7 +11,8 @@ class Antrean extends BpjsService
             'Content-Type'=>'application/json'
         ];
         $response = $this->post('antrean/getlisttask',$data);
-        return json_decode($response, true);
+        
+        return json_decode($response,true);
     }
     public function addAntrean($data = [])
     {
@@ -19,7 +20,7 @@ class Antrean extends BpjsService
             'Content-Type'=>'application/json'
         ];
         $response = $this->post('antrean/add', $data, $header);
-        return json_decode($response, true);
+        return json_decode($response,true);
     }
     public function cancelAntrean($data = [])
     {
@@ -27,7 +28,7 @@ class Antrean extends BpjsService
             'Content-Type'=>'application/json'
         ];
         $response = $this->post('antrean/batal', $data, $header);
-        return json_decode($response, true);
+        return json_decode($response,true);
     }
     public function updateWaktu($data = [])
     {
@@ -35,6 +36,25 @@ class Antrean extends BpjsService
             'Content-Type'=>'application/json'
         ];
         $response = $this->post('antrean/updatewaktu', $data, $header);
-        return json_decode($response, true);
+        return json_decode($response,true);
+    }
+    public function dashboardMonthly($month = null, $year = null,$time = null)
+    {
+        $header = [
+            'Content-Type'=>'application/json'
+        ];
+        $response = $this->get('dashboard/waktutunggu/bulan/'.$month.'/tahun/'.$year.'/waktu/'.$time);
+        
+        return json_decode($response,true);
+    }
+
+    public function dashboardDaily($date = null,$time = null)
+    {
+        $header = [
+            'Content-Type'=>'application/json'
+        ];
+        $response = $this->get('dashboard/waktutunggu/tanggal/'.$date.'/waktu/'.$time);
+        
+        return json_decode($response,true);
     }
 }

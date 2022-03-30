@@ -3,12 +3,14 @@ namespace Mbahmario\Bpjs;
 
 use GuzzleHttp\Client;
 
+
 class BpjsService{
 
     /**
      * Guzzle HTTP Client object
      * @var \GuzzleHttp\Client
      */
+    
     private $clients;
 
     /**
@@ -40,6 +42,8 @@ class BpjsService{
      */
     private $secret_key;
 
+    private $user_key;
+
     /**
      * @var string
      */
@@ -49,7 +53,7 @@ class BpjsService{
      * @var string
      */
     private $service_name;
-
+   
     public function __construct($configurations)
     {
         $this->clients = new Client([
@@ -62,7 +66,6 @@ class BpjsService{
             }
         }
 
-        //set X-Timestamp, X-Signature, and finally the headers
         $this->setTimestamp()->setSignature()->setHeaders();
     }
 
@@ -71,7 +74,8 @@ class BpjsService{
         $this->headers = [
             'X-cons-id' => $this->cons_id,
             'X-Timestamp' => $this->timestamp,
-            'X-Signature' => $this->signature
+            'X-Signature' => $this->signature,
+            'user_key' => $this->user_key
         ];
         return $this;
     }
@@ -92,6 +96,22 @@ class BpjsService{
         return $this;
     }
 
+    protected function decryptResponse($string)
+    {
+       $key = $this->cons_id.$this->secret_key.$this->timestamp;
+
+       $encrypt_method = 'AES-256-CBC';
+       $key_hash = hex2bin(hash('sha256', $key));
+
+       $iv = substr(hex2bin(hash('sha256', $key)), 0, 16);
+      
+    
+      $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
+
+      return \LZCompressor\LZString::decompressFromEncodedURIComponent($output);
+        
+    }
+
     protected function get($feature)
     {
         $this->headers['Content-Type'] = 'application/json; charset=utf-8';
@@ -103,10 +123,30 @@ class BpjsService{
                     'headers' => $this->headers
                 ]
             )->getBody()->getContents();
+            $decode_response = json_decode($response);
+
+            // if($decode_response['metadata']['code'] == 200 && is_string($decode_response['response'])){
+            
+            $stringDecrypt = $this->decryptResponse($decode_response->response);
+
+            if($this->service_name == "antreanrs"){
+                $metadata = $decode_response->metadata;
+
+            }else{
+                $metadata = $decode_response->metaData;
+            }
+
+            $data = [
+                'metadata'=>$metadata,
+                'response'=> $stringDecrypt
+            ];
+
+            $response = json_encode($data);
+            //}
         } catch (\Exception $e) {
             $response = $e->getResponse()->getBody();
         }
-        return $response;
+        return  $response;
     }
 
     protected function post($feature, $data = [], $headers = [])
@@ -124,10 +164,29 @@ class BpjsService{
                     'json' => $data,
                 ]
             )->getBody()->getContents();
+
+            $decode_response = json_decode($response);
+            $stringDecrypt = $this->decryptResponse($decode_response->response);
+
+            if($this->service_name == "antreanrs"){
+                $metadata = $decode_response->metadata;
+
+            }else{
+                $metadata = $decode_response->metaData;
+            }
+
+            $data = [
+                'metadata'=>$metadata,
+                'response'=> $stringDecrypt
+            ];
+            
+            $response = json_encode($data);
         } catch (\Exception $e) {
             $response = $e->getResponse()->getBody();
         }
-        return $response;
+
+
+        return   $response ;
     }
 
     protected function put($feature, $data = [])
@@ -142,6 +201,22 @@ class BpjsService{
                     'json' => $data,
                 ]
             )->getBody()->getContents();
+
+            $decode_response = json_decode($response);
+            $stringDecrypt = $this->decryptResponse($decode_response->response);
+
+            if($this->service_name == "antreanrs"){
+                $metadata = $decode_response->metadata;
+
+            }else{
+                $metadata = $decode_response->metaData;
+            }
+
+            $data = [
+                'metadata'=>$metadata,
+                'response'=> $stringDecrypt
+            ];
+            $response = json_encode($data);
         } catch (\Exception $e) {
             $response = $e->getResponse()->getBody();
         }
@@ -161,10 +236,30 @@ class BpjsService{
                     'json' => $data,
                 ]
             )->getBody()->getContents();
+            $decode_response = json_decode($response);
+            $stringDecrypt = $this->decryptResponse($decode_response->response);
+
+            if($this->service_name == "antreanrs"){
+                $metadata = $decode_response->metadata;
+
+            }else{
+                $metadata = $decode_response->metaData;
+            }
+
+            $data = [
+                'metadata'=>$metadata,
+                'response'=> $stringDecrypt
+            ];
+            $response = json_encode($data);
+           
         } catch (\Exception $e) {
             $response = $e->getResponse()->getBody();
         }
         return $response;
+    }
+    
+    protected function responseVclaim($response){
+        
     }
 
 }

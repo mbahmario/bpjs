@@ -3,41 +3,66 @@
 require_once __DIR__.'/../vendor/autoload.php';
 
 //use your own bpjs config
-$vclaim_conf = [
-    'cons_id' => '12345',
-    'secret_key' => '12345',
-    'base_url' => 'https://new-api.bpjs-kesehatan.go.id:8080',
-    'service_name' => 'new-vclaim-rest'
+$vclaim_v2_conf = [
+    'cons_id' => '',
+    'secret_key' => '',
+    'user_key' => '',
+    'base_url' => '',
+    'service_name' => ''
 ];
 
-$antrean_conf = [
-    'cons_id' => '12334',
-    'secret_key' => '1223',
-    'base_url' => 'https://antrean.bpjs-kesehatan.go.id',
-    'service_name' => 'arsws/rest/v2'
+$antrean_v2_conf = [
+'cons_id' => '',
+'secret_key' => '',
+'user_key' => '',
+'base_url' => '',
+'service_name' => ''
 ];
 
-$dev_vclaim_conf = [
-    'cons_id' => '1222',
-    'secret_key' => '12212',
-    'base_url' => 'https://dvlp.bpjs-kesehatan.go.id',
-    'service_name' => 'vclaim-rest-1.1'
-];
+//$referensi = new \Mbahmario\Bpjs\Antrean\Jadwaldokter($antrean_v2_conf);
+// $referensi = new \Mbahmario\Bpjs\Antrean\Antrean($antrean_v2_conf);
+// $data = [
+//     "kodebooking"=>"1647384076RSCQ001",
+// ];
 
-$dev_antrean_conf = [
-    'cons_id' => '12212',
-    'secret_key' => '12212',
-    'base_url' => 'https://dvlp.bpjs-kesehatan.go.id:8888',
-    'service_name' => 'arsws/rest/v1'
-];
+$referensi = new \Mbahmario\Bpjs\VClaim\Antrean($vclaim_v2_conf);
+
+$data = array(
+    
+        "kodebooking"=> "1647767809RSCQ001",
+        "jenispasien"=> "JKN",
+        "nomorkartu"=> "0001456045942",
+        "nik"=> "3203024606140002",
+        "nohp"=> "000000000000",
+        "kodepoli"=> "ANA",
+        "namapoli"=> "Anak",
+        "pasienbaru"=> 0,
+        "norm"=> "00368766",
+        "tanggalperiksa"=> "2022-03-24",
+        "kodedokter"=> 12345,
+        "namadokter"=> "Dr. Hendra",
+        "jampraktek"=> "08:00-16:00",
+        "jeniskunjungan"=> 1,
+        "nomorreferensi"=> "0001R0040116A000001",
+        "nomorantrean"=> "A-12",
+        "angkaantrean"=> 12,
+        "estimasidilayani"=> 1615869169000,
+        "sisakuotajkn"=> 5,
+        "kuotajkn"=> 30,
+        "sisakuotanonjkn"=> 5,
+        "kuotanonjkn"=> 30,
+        "keterangan"=> "Peserta harap 30 menit lebih awal guna pencatatan administrasi."
+     
+);
+var_dump($referensi->addAntrean($data));
 
 
 //use referensi serivce
-$referensi = new \Mbahmario\Bpjs\Antrean\Antrean($antrean_conf);
-$data =array(
-    "kodebooking"=>"A0001#1619658443",
-);
-var_dump($referensi->getListTask($data));
+// $referensi = new \Mbahmario\Bpjs\Antrean\Antrean($antrean_conf);
+// $data =array(
+//     "kodebooking"=>"A0001#1619658443",
+// );
+// var_dump($referensi->getListTask($data));
 
 
 // //use referensi serivce
