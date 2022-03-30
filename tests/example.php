@@ -3,21 +3,7 @@
 require_once __DIR__.'/../vendor/autoload.php';
 
 //use your own bpjs config
-$vclaim_v2_conf = [
-    'cons_id' => '18036',
-    'secret_key' => '3wCA1C66C0',
-    'user_key' => '88417e5de63ecbe9d90650ca106cd925',
-    'base_url' => 'https://apijkn.bpjs-kesehatan.go.id',
-    'service_name' => 'vclaim-rest'
-];
 
-$antrean_v2_conf = [
-'cons_id' => '18036',
-'secret_key' => '3wCA1C66C0',
-'user_key' => 'ccf9c93fdaf305d62d0bf39f3e104682',
-'base_url' => 'https://apijkn.bpjs-kesehatan.go.id',
-'service_name' => 'antreanrs'
-];
 
 //$referensi = new \Mbahmario\Bpjs\Antrean\Jadwaldokter($antrean_v2_conf);
 // $referensi = new \Mbahmario\Bpjs\Antrean\Antrean($antrean_v2_conf);
