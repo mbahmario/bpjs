@@ -144,7 +144,7 @@ class BpjsService{
             $response = json_encode($data);
             //}
         } catch (\Exception $e) {
-            $response = $e->getResponse()->getBody();
+            $response = json_encode($e->getMessage());
         }
         return  $response;
     }
@@ -182,7 +182,7 @@ class BpjsService{
             
             $response = json_encode($data);
         } catch (\Exception $e) {
-            $response = $e->getResponse()->getBody();
+            $response = json_encode($e->getMessage());
         }
 
 
@@ -218,7 +218,7 @@ class BpjsService{
             ];
             $response = json_encode($data);
         } catch (\Exception $e) {
-            $response = $e->getResponse()->getBody();
+            $response = json_encode($e->getMessage());
         }
         return $response;
     }
@@ -253,13 +253,10 @@ class BpjsService{
             $response = json_encode($data);
            
         } catch (\Exception $e) {
-            $response = $e->getResponse()->getBody();
+            $response = json_encode($e->getMessage());
         }
         return $response;
     }
-    
-    protected function responseVclaim($response){
-        
-    }
+
 
 }
