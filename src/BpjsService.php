@@ -10,7 +10,7 @@ class BpjsService{
      * Guzzle HTTP Client object
      * @var \GuzzleHttp\Client
      */
-    
+
     private $clients;
 
     /**
@@ -53,7 +53,7 @@ class BpjsService{
      * @var string
      */
     private $service_name;
-   
+
     public function __construct($configurations)
     {
         $this->clients = new Client([
@@ -104,12 +104,12 @@ class BpjsService{
        $key_hash = hex2bin(hash('sha256', $key));
 
        $iv = substr(hex2bin(hash('sha256', $key)), 0, 16);
-      
-    
+
+
       $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key_hash, OPENSSL_RAW_DATA, $iv);
 
       return \LZCompressor\LZString::decompressFromEncodedURIComponent($output);
-        
+
     }
 
     protected function get($feature)
@@ -123,30 +123,21 @@ class BpjsService{
                     'headers' => $this->headers
                 ]
             )->getBody()->getContents();
-            $decode_response = json_decode($response);
-
-            // if($decode_response['metadata']['code'] == 200 && is_string($decode_response['response'])){
-            
-            $stringDecrypt = $this->decryptResponse($decode_response->response);
 
             if($this->service_name == "antreanrs"){
-                $metadata = $decode_response->metadata;
+                $result = $this->antreanResponse($response);
 
             }else{
-                $metadata = $decode_response->metaData;
+                $result = $this->vclaimResponse($response);
             }
 
-            $data = [
-                'metadata'=>$metadata,
-                'response'=> $stringDecrypt
-            ];
-
-            $response = json_encode($data);
-            //}
         } catch (\Exception $e) {
-            $response = json_encode($e->getMessage());
+
+            $result = json_encode($e->getMessage());
         }
-        return  $response;
+
+
+        return   $result ;
     }
 
     protected function post($feature, $data = [], $headers = [])
@@ -165,28 +156,20 @@ class BpjsService{
                 ]
             )->getBody()->getContents();
 
-            $decode_response = json_decode($response);
-            $stringDecrypt = $this->decryptResponse($decode_response->response);
-
             if($this->service_name == "antreanrs"){
-                $metadata = $decode_response->metadata;
+                $result = $this->antreanResponse($response);
 
             }else{
-                $metadata = $decode_response->metaData;
+                $result = $this->vclaimResponse($response);
             }
 
-            $data = [
-                'metadata'=>$metadata,
-                'response'=> $stringDecrypt
-            ];
-            
-            $response = json_encode($data);
         } catch (\Exception $e) {
-            $response = json_encode($e->getMessage());
+
+            $result = json_encode($e->getMessage());
         }
 
 
-        return   $response ;
+        return   $result ;
     }
 
     protected function put($feature, $data = [])
@@ -202,25 +185,20 @@ class BpjsService{
                 ]
             )->getBody()->getContents();
 
-            $decode_response = json_decode($response);
-            $stringDecrypt = $this->decryptResponse($decode_response->response);
-
             if($this->service_name == "antreanrs"){
-                $metadata = $decode_response->metadata;
+                $result = $this->antreanResponse($response);
 
             }else{
-                $metadata = $decode_response->metaData;
+                $result = $this->vclaimResponse($response);
             }
 
-            $data = [
-                'metadata'=>$metadata,
-                'response'=> $stringDecrypt
-            ];
-            $response = json_encode($data);
         } catch (\Exception $e) {
-            $response = json_encode($e->getMessage());
+
+            $result = json_encode($e->getMessage());
         }
-        return $response;
+
+
+        return   $result ;
     }
 
 
@@ -236,26 +214,75 @@ class BpjsService{
                     'json' => $data,
                 ]
             )->getBody()->getContents();
-            $decode_response = json_decode($response);
-            $stringDecrypt = $this->decryptResponse($decode_response->response);
-
             if($this->service_name == "antreanrs"){
-                $metadata = $decode_response->metadata;
+                $result = $this->antreanResponse($response);
 
             }else{
-                $metadata = $decode_response->metaData;
+                $result = $this->vclaimResponse($response);
             }
 
-            $data = [
-                'metadata'=>$metadata,
-                'response'=> $stringDecrypt
-            ];
-            $response = json_encode($data);
-           
         } catch (\Exception $e) {
-            $response = json_encode($e->getMessage());
+
+            $result = json_encode($e->getMessage());
         }
-        return $response;
+
+
+        return   $result ;
+    }
+
+    protected function antreanResponse($response){
+
+        $decode_response = json_decode($response);
+
+        if($decode_response->metadata->code == 200 ){
+            if(property_exists($decode_response, 'response')){
+                $bodyResponse = $this->decryptResponse($decode_response->response);
+            }else{
+                $bodyResponse =$decode_response->metadata->message;
+            }
+
+        }else{
+            if(property_exists($decode_response, 'response')){
+                $bodyResponse = $this->decryptResponse($decode_response->response);
+            }else{
+                $bodyResponse =$decode_response->metadata->message;
+            }
+        }
+
+        $data = [
+            'metadata'=>$decode_response->metadata,
+            'response'=> $bodyResponse
+        ];
+
+        return json_encode($data);
+
+    }
+
+    protected function vclaimResponse($response){
+
+        $decode_response = json_decode($response);
+
+        if($decode_response->metaData->code == 200 ){
+            if(property_exists($decode_response, 'response')){
+                $bodyResponse = $this->decryptResponse($decode_response->response);
+            }else{
+                $bodyResponse =$decode_response->metaData->message;
+            }
+        }else{
+            if(property_exists($decode_response, 'response')){
+                $bodyResponse = $this->decryptResponse($decode_response->response);
+            }else{
+                $bodyResponse =$decode_response->metaData->message;
+            }
+        }
+
+        $data = [
+            'metadata'=>$decode_response->metaData,
+            'response'=> $bodyResponse
+        ];
+
+        return json_encode($data);
+
     }
 
 

@@ -11,7 +11,7 @@ class Antrean extends BpjsService
             'Content-Type'=>'application/json'
         ];
         $response = $this->post('antrean/getlisttask',$data);
-        
+
         return json_decode($response,true);
     }
     public function addAntrean($data = [])
@@ -44,7 +44,7 @@ class Antrean extends BpjsService
             'Content-Type'=>'application/json'
         ];
         $response = $this->get('dashboard/waktutunggu/bulan/'.$month.'/tahun/'.$year.'/waktu/'.$time);
-        
+
         return json_decode($response,true);
     }
 
@@ -54,7 +54,7 @@ class Antrean extends BpjsService
             'Content-Type'=>'application/json'
         ];
         $response = $this->get('dashboard/waktutunggu/tanggal/'.$date.'/waktu/'.$time);
-        
+
         return json_decode($response,true);
     }
 }
