@@ -4,22 +4,20 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 
 
+$config_vclaim = [
+    'cons_id' =>  env('CONS_ID'),
+    'secret_key' => env('SECRET_KEY'),
+    'user_key' =>  env('USER_KEY'),
+    'base_url' => 'https://apijkn.bpjs-kesehatan.go.id',
+    'service_name' => 'vclaim-rest'
+];
 
 
 //use referensi serivce
-$referensi = new \Mbahmario\Bpjs\Antrean\Antrean($antrean_v2_conf);
+$referensi = new \Mbahmario\Bpjs\VClaim\RencanaKontrol($config_vclaim);
 
-$data =array(
-    "kodebooking"=>"1648603326B093",
-);
+$data =[];
+// var_dump($referensi->cariByNoKartu('04','2023','CARD NUMBER','2'));
 
-var_dump($referensi->getListTask($data));
+var_dump($referensi->cariByNoSuratKontrol('1017R0020323K001801'));
 
-
-// //use referensi serivce
-// $referensi = new \Mbahmario\Bpjs\VClaim\Referensi($vclaim_conf);
-// var_dump($referensi->diagnosa('A00'));
-
-// //use peserta service
-// $peserta = new \Mbahmario\Bpjs\VClaim\Peserta($vclaim_conf);
-// var_dump($peserta->getByNoKartu('123456789','2018-09-16'));

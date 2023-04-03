@@ -245,7 +245,7 @@ class BpjsService{
             if(property_exists($decode_response, 'response')){
                 $bodyResponse = $this->decryptResponse($decode_response->response);
             }else{
-                $bodyResponse =$decode_response->metadata->message;
+                $bodyResponse =$decode_response->metadata;
             }
         }
 

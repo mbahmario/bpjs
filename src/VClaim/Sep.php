@@ -21,6 +21,22 @@ class Sep extends BpjsService
         return json_decode($response, true);
     }
 
+    public function insertSEPV2($data = [])
+    {
+        $response = $this->post('SEP/2.0/insert', $data);
+        return json_decode($response, true);
+    }
+    public function updateSEPV2($data = [])
+    {
+        $response = $this->put('SEP/2.0/Update', $data);
+        return json_decode($response, true);
+    }
+    public function deleteSEPV2($data = [])
+    {
+        $response = $this->delete('SEP/2.0/delete', $data);
+        return json_decode($response, true);
+    }
+
     public function cariSEP($keyword)
     {
         $response = $this->get('SEP/'.$keyword);
