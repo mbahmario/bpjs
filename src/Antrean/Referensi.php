@@ -23,5 +23,14 @@ class Referensi extends BpjsService
         
         return json_decode($response,true);
     }
+    public function referensiPoliFinger()
+    {
+        $header = [
+            'Content-Type'=>'application/json'
+        ];
+        $response = $this->get('ref/poli/fp');
+        
+        return json_decode($response,true);
+    }
    
 }
