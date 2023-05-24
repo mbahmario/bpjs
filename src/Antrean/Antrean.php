@@ -22,6 +22,14 @@ class Antrean extends BpjsService
         $response = $this->post('antrean/add', $data, $header);
         return json_decode($response,true);
     }
+    public function addAntreanFarmasi($data = [])
+    {
+        $header = [
+            'Content-Type'=>'application/json'
+        ];
+        $response = $this->post('antrean/farmasi/add', $data, $header);
+        return json_decode($response,true);
+    }
     public function cancelAntrean($data = [])
     {
         $header = [
@@ -54,6 +62,15 @@ class Antrean extends BpjsService
             'Content-Type'=>'application/json'
         ];
         $response = $this->get('dashboard/waktutunggu/tanggal/'.$date.'/waktu/'.$time);
+
+        return json_decode($response,true);
+    }
+    public function fingerValidation($param = null,$keyword = null)
+    {
+        $header = [
+            'Content-Type'=>'application/json'
+        ];
+        $response = $this->get('ref/pasien/fp/identitas/'.$param.'/noidentitas/'.$keyword);
 
         return json_decode($response,true);
     }
