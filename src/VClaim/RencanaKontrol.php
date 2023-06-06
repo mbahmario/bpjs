@@ -47,7 +47,7 @@ class RencanaKontrol extends BpjsService
 
     public function listDataSuratKontrol($dateFrom, $dateTo, $filter)
     {
-        $url = 'RencanaKontrol/ListRencanaKontrol/tglAwal/'.$dateFrom.'/tglAkhir/'.$dateTo.'/filter/'.$date;
+        $url = 'RencanaKontrol/ListRencanaKontrol/tglAwal/'.$dateFrom.'/tglAkhir/'.$dateTo.'/filter/'.$filter;
         $response = $this->get($url);
         return json_decode($response, true);
     }
