@@ -51,4 +51,10 @@ class RencanaKontrol extends BpjsService
         $response = $this->get($url);
         return json_decode($response, true);
     }
+    public function cariByNoSEP($noSEP)
+    {
+        $url = 'RencanaKontrol/nosep/'.$noSEP;
+        $response = $this->get($url);
+        return json_decode($response, true);
+    }
 }

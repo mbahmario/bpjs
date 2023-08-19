@@ -48,9 +48,19 @@ class Sep extends BpjsService
         $response = $this->get('sep/JasaRaharja/Suplesi/'.$noKartu.'/tglPelayanan/'.$tglPelayanan);
         return json_decode($response, true);
     }
+    public function dataIndukKLL($noKartu)
+    {
+        $response = $this->get('sep/KllInduk/List/'.$noKartu);
+        return json_decode($response, true);
+    }
     public function pengajuanPenjaminanSep($data = [])
     {
         $response = $this->post('Sep/pengajuanSEP', $data);
+        return json_decode($response, true);
+    }
+    public function pengajuanPenjaminanSepList($bulan, $tahun)
+    {
+        $response = $this->get('Sep/persetujuanSEP/list/bulan/'.$bulan.'/tahun/'.$tahun);
         return json_decode($response, true);
     }
     public function approvalPenjaminanSep($data = [])
@@ -67,6 +77,16 @@ class Sep extends BpjsService
     public function inacbgSEP($keyword)
     {
         $response = $this->get('sep/cbg/'.$keyword);
+        return json_decode($response, true);
+    }
+    public function fingerStatus($noKartu, $tglPelayanan)
+    {
+        $response = $this->get('SEP/FingerPrint/Peserta/'.$noKartu.'/TglPelayanan/'.$tglPelayanan);
+        return json_decode($response, true);
+    }
+    public function fingerList($tglPelayanan)
+    {
+        $response = $this->get('SEP/FingerPrint/List/Peserta/TglPelayanan/'.$tglPelayanan);
         return json_decode($response, true);
     }
 }
