@@ -14,6 +14,45 @@ class Antrean extends BpjsService
 
         return json_decode($response,true);
     }
+
+    public function getAntreanById($kodeBooking = null)
+    {
+        $header = [
+            'Content-Type'=>'application/json'
+        ];
+        $response = $this->get('antrean/pendaftaran/kodebooking/'.$kodeBooking);
+
+        return json_decode($response,true);
+    }
+
+    public function getAntreanByDate()
+    {
+        $header = [
+            'Content-Type'=>'application/json'
+        ];
+        $response = $this->get('antrean/pendaftaran/aktif');
+
+        return json_decode($response,true);
+    }
+
+    public function getAntreanActive($tgl = null)
+    {
+        $header = [
+            'Content-Type'=>'application/json'
+        ];
+        $response = $this->get('antrean/pendaftaran/tanggal/'.$tgl);
+
+        return json_decode($response,true);
+    }
+    public function getAntreanActiveByParamedic($poli = null, $kdDokter = null,$hari = null,$jamPraktek = null)
+    {
+        $header = [
+            'Content-Type'=>'application/json'
+        ];
+        $response = $this->get('antrean/pendaftaran/kodepoli/'.$poli.'/kodedokter/'.$kdDokter.'/hari/'.$hari.'/jampraktek/'.$jamPraktek);
+
+        return json_decode($response,true);
+    }
     public function addAntrean($data = [])
     {
         $header = [

@@ -32,5 +32,23 @@ class Referensi extends BpjsService
         
         return json_decode($response,true);
     }
+    
+    public function referensiJadwalDokter($poli = null, $tgl = null)
+    {
+        $header = [
+            'Content-Type'=>'application/json'
+        ];
+        $response =$this->get('jadwaldokter/kodepoli/'.$poli.'/tanggal/'.$tgl);
+        
+        return json_decode($response,true);
+    }
+    public function updateJadwalDokter($data = [])
+    {
+        $header = [
+            'Content-Type'=>'application/json'
+        ];
+        $response = $this->post('jadwaldokter/updatejadwaldokter', $data, $header);
+        return json_decode($response,true);
+    }
    
 }
