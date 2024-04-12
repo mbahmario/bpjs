@@ -16,7 +16,7 @@
         }
     },
     "require": {
-        "guzzlehttp/guzzle": "^6.3|^7.0|^7.1|^7.2|^7.3",
+        "guzzlehttp/guzzle": "^6.3||^7.0||^7.1||^7.2||^7.3",
         "nullpunkt/lz-string-php": "^1.3"
     }
 }
