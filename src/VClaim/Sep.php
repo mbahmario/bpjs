@@ -42,6 +42,11 @@ class Sep extends BpjsService
         $response = $this->get('SEP/'.$keyword);
         return json_decode($response, true);
     }
+    public function cariSepTerakhirByRujukan($keyword)
+    {
+        $response = $this->get('Rujukan/lastsep/norujukan/'.$keyword);
+        return json_decode($response, true);
+    }
 
     public function suplesiJasaRaharja($noKartu, $tglPelayanan)
     {
@@ -68,9 +73,24 @@ class Sep extends BpjsService
         $response = $this->post('Sep/aprovalSEP', $data);
         return json_decode($response, true);
     }
+    public function listAprovalSep($bulan,$tahun)
+    {
+        $response = $this->get('Sep/persetujuanSEP/list/bulan/'.$bulan.'/tahun/'.$tahun);
+        return json_decode($response, true);
+    }
     public function updateTglPlg($data = [])
     {
         $response = $this->put('Sep/updtglplg', $data);
+        return json_decode($response, true);
+    }
+    public function updateTglPlgV2($data = [])
+    {
+        $response = $this->put('Sep/2.0/updtglplg', $data);
+        return json_decode($response, true);
+    }
+    public function listUpdateDataTglPulang($bulan,$tahun,$filter='')
+    {
+        $response = $this->get('Sep/updtglplg/list/bulan/'.$bulan.'/tahun/'.$tahun.'/'.$filter);
         return json_decode($response, true);
     }
 
@@ -87,6 +107,18 @@ class Sep extends BpjsService
     public function fingerList($tglPelayanan)
     {
         $response = $this->get('SEP/FingerPrint/List/Peserta/TglPelayanan/'.$tglPelayanan);
+        return json_decode($response, true);
+    } 
+    //add endpoint on 18 05 2025
+    // SEP Internal
+    public function dataSepInternal($keyword)
+    {
+        $response = $this->get('SEP/Internal/'.$keyword);
+        return json_decode($response, true);
+    }
+    public function hapusSepInternal($data = [])
+    {
+        $response = $this->post('SEP/Internal/delete', $data);
         return json_decode($response, true);
     }
 }

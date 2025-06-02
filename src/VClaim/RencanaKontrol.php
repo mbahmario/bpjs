@@ -57,4 +57,16 @@ class RencanaKontrol extends BpjsService
         $response = $this->get($url);
         return json_decode($response, true);
     }
+    public function dataDokterRencanaKontrol($jenisKontrol, $kodePoli, $tglRencana)
+    {
+        $url = 'RencanaKontrol/JadwalPraktekDokter/JnsKontrol/'.$jenisKontrol.'/KdPoli/'.$kodePoli.'/TglRencanaKontrol/'.$tglRencana;
+        $response = $this->get($url);
+        return json_decode($response, true);
+    }
+    public function dataRencanaKontrol($jenisKontrol, $keyword, $tglRencana)
+    {
+        $url = 'RencanaKontrol/ListSpesialistik/JnsKontrol/'.$jenisKontrol.'/nomor/'.$keyword.'/TglRencanaKontrol/'.$tglRencana;
+        $response = $this->get($url);
+        return json_decode($response, true);
+    }
 }

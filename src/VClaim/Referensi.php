@@ -87,5 +87,15 @@ class Referensi extends BpjsService
         $response = $this->get('referensi/pascapulang');
         return json_decode($response, true);
     }
+    public function cariDiagnosaPRB()
+    {
+        $response = $this->get('referensi/diagnosaprb');
+        return json_decode($response, true);
+    }
+    public function cariObatGenerikPRB($keyword)
+    {
+        $response = $this->get('referensi/obatprb/'.$keyword);
+        return json_decode($response, true);
+    }
 
 }
