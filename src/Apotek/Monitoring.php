@@ -5,7 +5,7 @@ use Mbahmario\Bpjs\BpjsService;
 
 class Monitoring extends BpjsService
 {
-
+    //add new method to list claims monitoring
     public function list($bulan, $tahun, $jenisObat, $status)
     {
         $response = $this->get('monitoring/klaim/'.$bulan.'/'.$tahun.'/'.$jenisObat.'/'.$status);

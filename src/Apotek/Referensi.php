@@ -5,7 +5,7 @@ use Mbahmario\Bpjs\BpjsService;
 
 class Referensi extends BpjsService
 {
-
+    //add new methods to get various references
     public function getDpho()
     {
         $response = $this->get('referensi/dpho');

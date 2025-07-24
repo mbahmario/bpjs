@@ -5,7 +5,7 @@ use Mbahmario\Bpjs\BpjsService;
 
 class Resep extends BpjsService
 {
-
+    //add new methods to handle resep
     public function insert($data=[])
     {
         $response = $this->post('sjpresep/v3/insert', $data);

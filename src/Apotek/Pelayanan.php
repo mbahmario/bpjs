@@ -5,7 +5,7 @@ use Mbahmario\Bpjs\BpjsService;
 
 class Pelayanan extends BpjsService
 {
-
+    //add new method to insert obat pelayanan
     public function delete($data=[])
     {
         $response = $this->delete('pelayanan/obat/hapus', $data);
