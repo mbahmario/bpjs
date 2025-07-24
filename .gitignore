@@ -1,3 +1,4 @@
-/vendor
+/vendorx
+/tests
 .env
 real-example.php
